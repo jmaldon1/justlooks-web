@@ -17,18 +17,17 @@ export const makeSelectQueryParams = () =>
         substate => substate.queryParams,
     );
 
-
 export const makeSelectProducts = () =>
     createSelector(
         selectProductsPageDomain,
         substate => substate.products,
     );
 
-export const makeSelectNextLink = () =>
-    createSelector(
-        selectProductsPageDomain,
-        substate => substate.nextLink,
-    );
+// export const makeSelectNextLink = () =>
+//     createSelector(
+//         selectProductsPageDomain,
+//         substate => substate.nextLink,
+//     );
 
 export const makeSelectLinkHeader = () =>
     createSelector(

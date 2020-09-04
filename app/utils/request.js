@@ -1,4 +1,4 @@
-import url from 'url';
+// import url from 'url';
 
 /**
  * Parses the JSON returned by a network request
@@ -11,12 +11,10 @@ function parseJSONWithHeaders(response) {
     if (response.status === 204 || response.status === 205) {
         return null;
     }
-    return response.json().then(
-        json => ({
-            "jsonResponse": json,
-            "headers": Object.fromEntries(response.headers.entries()),
-        })
-    )
+    return response.json().then(json => ({
+        jsonResponse: json,
+        headers: Object.fromEntries(response.headers.entries()),
+    }));
 }
 
 /**
@@ -44,10 +42,10 @@ function checkStatus(response) {
  *
  * @return {object}             The response data
  */
-export default function request(url, options) {
+export default function request(requestUrl, options) {
     // const proxy = "http://localhost:5000"
     // const requestURL = url.resolve(proxy, path)
-    return fetch(url, options)
+    return fetch(requestUrl, options)
         .then(checkStatus)
         .then(parseJSONWithHeaders);
 }

@@ -11,6 +11,30 @@ const selectOutfitsPageDomain = state => state.outfitsPage || initialState;
  * Other specific selectors
  */
 
+export const makeSelectQueryParams = () =>
+    createSelector(
+        selectOutfitsPageDomain,
+        substate => substate.queryParams,
+    );
+
+export const makeSelectOutfits = () =>
+    createSelector(
+        selectOutfitsPageDomain,
+        substate => substate.outfits,
+    );
+
+export const makeSelectLinkHeader = () =>
+    createSelector(
+        selectOutfitsPageDomain,
+        substate => substate.linkHeader,
+    );
+
+export const makeSelectIsEachThumbnailShown = () =>
+    createSelector(
+        selectOutfitsPageDomain,
+        substate => substate.isEachThumbnailShown,
+    );
+
 /**
  * Default selector used by OutfitsPage
  */

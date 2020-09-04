@@ -5,13 +5,12 @@
  */
 
 import React, { memo } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-
+// import { FormattedMessage } from 'react-intl';
+// import messages from './messages';
 
 const CenteredDiv = styled.div`
     padding-top: 1em;
@@ -27,17 +26,40 @@ const LoadMoreButtonStyled = styled(Button)`
     overflow-anchor: none;
 `;
 
-const LoadMoreButton = ({ productsLength, fetchProducts }) => {
-    if (productsLength == 0) return null;
+// const LoadMoreButton = ({ productsLength, fetchProducts }) => {
+//     if (productsLength == 0) return null;
+//     return (
+//         <CenteredDiv>
+//             <LoadMoreButtonStyled onClick={fetchProducts} size="lg" variant="outline-dark">
+//                 Load More
+//             </LoadMoreButtonStyled>
+//         </CenteredDiv>
+//     );
+// };
+
+const LoadMoreButton = ({
+    loadedThumbnailLength,
+    isEachThumbnailShown,
+    fetchMore,
+}) => {
+    if (loadedThumbnailLength === 0 || isEachThumbnailShown) return null;
     return (
         <CenteredDiv>
-            <LoadMoreButtonStyled onClick={fetchProducts} size="lg" variant="outline-dark">
+            <LoadMoreButtonStyled
+                onClick={fetchMore}
+                size="lg"
+                variant="outline-dark"
+            >
                 Load More
             </LoadMoreButtonStyled>
         </CenteredDiv>
     );
 };
 
-LoadMoreButton.propTypes = {};
+LoadMoreButton.propTypes = {
+    loadedThumbnailLength: PropTypes.number,
+    isEachThumbnailShown: PropTypes.bool,
+    fetchMore: PropTypes.func,
+};
 
 export default memo(LoadMoreButton);

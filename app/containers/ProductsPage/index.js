@@ -15,34 +15,25 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 // https://stackoverflow.com/questions/33611812/export-const-vs-export-default-in-es6
+// import history from 'utils/history';
+import qs from 'qs';
+// import styled from 'styled-components';
+import LoadMoreButton from 'components/LoadMoreButton';
+import ThumbnailGridList from 'components/ThumbnailGridList';
 import {
+    // eslint-disable-next-line import/no-named-default
     default as makeSelectProductsPage,
-    makeSelectProducts
+    makeSelectProducts,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import {
-    loadProducts,
-    setQueryParams
- } from './actions';
-import history from 'utils/history';
-import qs from 'qs';
-import styled from 'styled-components';
-import LoadMoreButton from 'components/LoadMoreButton';
-import ThumbnailGridList from 'components/ThumbnailGridList';
+import { loadProducts, setQueryParams } from './actions';
 // import * as R from 'ramda'
-
-const CenteredDiv = styled.div`
-    padding-top: 1em;
-    padding-bottom: 1em;
-    display: flex;
-    justify-content: center;
-`;
 
 export function ProductsPage({
     fetchProducts,
-    location,  // location is passed in from react-router-dom
+    location, // location is passed in from react-router-dom
     products,
     setQParams,
 }) {
@@ -50,10 +41,13 @@ export function ProductsPage({
     useInjectSaga({ key: 'productsPage', saga });
 
     useEffect(() => {
-        const locationSearch = location.search
+        const locationSearch = location.search;
 
         if (locationSearch) {
-            const locationSearchQueryBeginRemoved = locationSearch.replace("?", "")
+            const locationSearchQueryBeginRemoved = locationSearch.replace(
+                '?',
+                '',
+            );
             const queryParams = qs.parse(locationSearchQueryBeginRemoved);
             setQParams(queryParams);
         }
@@ -63,12 +57,12 @@ export function ProductsPage({
 
     const loadMoreButtonProps = {
         productsLength: products.length,
-        fetchProducts: fetchProducts,
-    }
+        fetchProducts,
+    };
 
     const gridListProps = {
-        products: products
-    }
+        products,
+    };
 
     return (
         <article>
@@ -87,8 +81,11 @@ export function ProductsPage({
 }
 
 ProductsPage.propTypes = {
-    // dispatch: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
     fetchProducts: PropTypes.func,
+    location: PropTypes.string,
+    products: PropTypes.array,
+    setQParams: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -103,7 +100,7 @@ function mapDispatchToProps(dispatch) {
         },
         setQParams: queryParams => {
             dispatch(setQueryParams(queryParams));
-        }
+        },
     };
 }
 
