@@ -42,13 +42,10 @@ export function OutfitsPage({
 
     useEffect(() => {
         const locationSearch = location.search;
-
         if (locationSearch) {
-            const locationSearchQueryBeginRemoved = locationSearch.replace(
-                '?',
-                '',
-            );
-            const queryParams = qs.parse(locationSearchQueryBeginRemoved);
+            const queryParams = qs.parse(locationSearch, {
+                ignoreQueryPrefix: true,
+            });
             setQParams(queryParams);
         }
         fetchOutfits();
@@ -82,7 +79,7 @@ export function OutfitsPage({
 OutfitsPage.propTypes = {
     dispatch: PropTypes.func.isRequired,
     outfitsPage: PropTypes.object,
-    location: PropTypes.string,
+    location: PropTypes.object,
     fetchOutfits: PropTypes.func,
     setQParams: PropTypes.func,
     outfits: PropTypes.array,

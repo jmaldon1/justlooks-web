@@ -11,8 +11,9 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import ProductsPage from 'containers/ProductsPage/Loadable';
+// import ProductsPage from 'containers/ProductsPage/Loadable';
 import OutfitsPage from 'containers/OutfitsPage/Loadable';
+import OutfitPage from 'containers/OutfitPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
@@ -23,7 +24,8 @@ export default function App() {
             <Switch>
                 <Route exact path="/home" component={HomePage} />
                 <Route exact path="/" component={OutfitsPage} />
-                <Route exact path="/products" component={ProductsPage} />
+                <Route exact path="/outfit/:outfitId" component={OutfitPage} />
+                {/* <Route exact path="/products" component={ProductsPage} /> */}
                 <Route component={NotFoundPage} />
             </Switch>
             <GlobalStyle />

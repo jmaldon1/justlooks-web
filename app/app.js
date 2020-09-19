@@ -16,6 +16,14 @@ import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 
+// Set up a Font Awesome Library
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+    faCircle,
+    faChevronLeft,
+    faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+
 // Import root app
 import App from 'containers/App';
 
@@ -32,6 +40,11 @@ import configureStore from './configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
+
+// Font Awesome library reference, allows us to reference icons
+// throughout the app much more easily. Must add all icons here,
+// then we can refer to them with their icon string name in any component.
+library.add(faCircle, faChevronLeft, faChevronRight);
 
 // Create redux store with history
 const initialState = {};

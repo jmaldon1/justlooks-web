@@ -39,6 +39,7 @@ const GridListGroup = styled(ListGroup)`
 const ThumbnailGridList = ({ outfits }) => (
     <GridListGroup horizontal="lg">
         {outfits.map(outfit => {
+            const outfitID = outfit.outfit_id;
             const outfitThumbnailProps = {
                 thumbnailUrl: outfit.url,
                 imageHeight: outfit.height,
@@ -46,10 +47,9 @@ const ThumbnailGridList = ({ outfits }) => (
             };
 
             return (
-                <ThumbnailImage
-                    key={outfit.outfit_id}
-                    {...outfitThumbnailProps}
-                />
+                <a href={`/outfit/${outfitID}`} key={outfitID}>
+                    <ThumbnailImage {...outfitThumbnailProps} />
+                </a>
             );
         })}
     </GridListGroup>
