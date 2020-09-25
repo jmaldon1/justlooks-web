@@ -12,8 +12,10 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import { GlobalStyle } from 'styles/global-styles';
 
-import { HomePage } from './containers/HomePage/Loadable';
+// import { HomePage } from './containers/HomePage/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { AllOutfits } from './containers/AllOutfits';
+import { OutfitPage } from './containers/OutfitPage';
 
 export function App() {
   return (
@@ -26,7 +28,8 @@ export function App() {
       </Helmet>
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={AllOutfits} />
+        <Route exact path="/outfit/:outfitId" component={OutfitPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
