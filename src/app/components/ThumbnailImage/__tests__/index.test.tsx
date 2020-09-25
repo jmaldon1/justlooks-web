@@ -5,7 +5,13 @@ import { ThumbnailImage } from '..';
 
 describe('<ThumbnailImage  />', () => {
   it('should match snapshot', () => {
-    const loadingIndicator = render(<ThumbnailImage />);
+    const loadingIndicator = render(
+      <ThumbnailImage
+        thumbnailUrl="testing"
+        imageHeight={100}
+        imageWidth={100}
+      />,
+    );
     expect(loadingIndicator.container.firstChild).toMatchSnapshot();
   });
 });
