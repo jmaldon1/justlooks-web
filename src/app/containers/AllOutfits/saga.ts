@@ -1,6 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { actions } from './slice';
-import { OutfitThumbnails } from './types';
+import { OutfitImage } from './types';
 import { request, JSONResponse } from 'utils/request';
 import {
   selectLinkHeader,
@@ -34,7 +34,9 @@ export function* getOutfitThumbnails() {
     queryParams,
   );
   const resp: JSONResponse = yield call(request, requestURL.href);
-  const outfitsThumbnails: OutfitThumbnails[] = resp.jsonResponse;
+  // const outfitsThumbnails: OutfitImage[] = resp.jsonResponse;
+  // TODO: FIX TYPES HERE
+  const outfitsThumbnails: any = resp.jsonResponse;
   const headers: { [header: string]: string } = resp.headers;
   const newLinkHeader: string | null = headers.link;
   const parsedNewLinkHeader: parse.Links | null = parse(newLinkHeader);
@@ -46,7 +48,7 @@ export function* getOutfitThumbnails() {
     yield put(actions.loadOutfitThumbnailsSuccess(outfitsThumbnails));
 
     if (parsedNewLinkHeader == null) {
-      yield select(selectIsEachThumbnailShown);
+      yield put(actions.setIsEachThumbnailShown(true));
     }
   }
 }

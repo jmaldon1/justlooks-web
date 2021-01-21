@@ -4,8 +4,8 @@
  *
  */
 import React, { memo } from 'react';
-import styled from 'styled-components/macro';
-import { useTranslation } from 'react-i18next';
+// import styled from 'styled-components/macro';
+// import { useTranslation } from 'react-i18next';
 import Figure from 'react-bootstrap/Figure';
 import LazyLoad from 'react-lazyload';
 import lazyLoadPlaceholderImage from 'images/logo512.png';

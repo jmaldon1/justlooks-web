@@ -4,14 +4,15 @@ import qs from 'qs';
 /* --- STATE --- */
 export interface AllOutfitsState {
   queryParams: qs.ParsedQs;
-  outfitThumbnails: OutfitThumbnails[];
+  isLoadingOutfitThumbnails: boolean;
+  outfitThumbnails: OutfitImage[];
   linkHeader: parse.Links | null;
   isEachThumbnailShown: boolean;
 }
 
 export type ContainerState = AllOutfitsState;
 
-export interface OutfitThumbnails {
+export interface OutfitImage {
   int_id: number;
   outfit_id: string;
   position: number;

@@ -17,6 +17,15 @@ import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { AllOutfits } from './containers/AllOutfits';
 import { OutfitPage } from './containers/OutfitPage';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faCircle,
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCircle, faChevronLeft, faChevronRight);
+
 export function App() {
   return (
     <BrowserRouter>

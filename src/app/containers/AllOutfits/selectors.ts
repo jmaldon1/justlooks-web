@@ -25,6 +25,11 @@ export const selectIsEachThumbnailShown = createSelector(
   allOutfitsState => allOutfitsState.isEachThumbnailShown,
 );
 
+export const selectIsLoadingOutfitThumbnails = createSelector(
+  [selectDomain],
+  allOutfitsState => allOutfitsState.isLoadingOutfitThumbnails,
+);
+
 export const selectOutfitThumbnails = createSelector(
   [selectDomain],
   allOutfitsState => allOutfitsState.outfitThumbnails,

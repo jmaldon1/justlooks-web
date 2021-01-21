@@ -8,7 +8,7 @@ export class ResponseError extends Error {
 }
 
 export interface JSONResponse {
-  jsonResponse: any | any[];
+  jsonResponse: { [k: string]: any } | { [k: string]: any }[];
   headers: { [header: string]: string };
 }
 
@@ -45,7 +45,7 @@ function checkStatus(response: Response): Response {
     return response;
   }
 
-  const error = new ResponseError(response);
+  const error: ResponseError = new ResponseError(response);
   error.response = response;
   throw error;
 }

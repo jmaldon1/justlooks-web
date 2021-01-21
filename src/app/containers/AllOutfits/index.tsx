@@ -9,20 +9,26 @@ import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components/macro';
+// import styled from 'styled-components/macro';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, actions } from './slice';
-import { selectAllOutfits, selectOutfitThumbnails } from './selectors';
+import {
+  selectAllOutfits,
+  selectOutfitThumbnails,
+  selectIsEachThumbnailShown,
+  selectIsLoadingOutfitThumbnails,
+} from './selectors';
 import { allOutfitsSaga } from './saga';
-import { AllOutfitsState, OutfitThumbnails } from './types';
+import { AllOutfitsState, OutfitImage } from './types';
 import qs from 'qs';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import { ThumbnailImage } from 'app/components/ThumbnailImage';
+import { ThumbnailImage } from './components/ThumbnailImage';
+import { LoadMoreButton } from './components/LoadMoreButton';
 
 interface Props {}
 
@@ -32,18 +38,16 @@ export const AllOutfits = memo((props: Props) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const allOutfits: AllOutfitsState = useSelector(selectAllOutfits);
-  const outfitThumbnails: OutfitThumbnails[] = useSelector(
-    selectOutfitThumbnails,
-  );
+  const outfitThumbnails: OutfitImage[] = useSelector(selectOutfitThumbnails);
+  const isEachThumbnailShown: boolean = useSelector(selectIsEachThumbnailShown);
+  const isLoadingOutfitThumbnails: boolean = useSelector(selectIsLoadingOutfitThumbnails);
+  const loadedThumbnailLength: number = outfitThumbnails.length;
 
+  console.log(allOutfits)
   const dispatch = useDispatch();
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, i18n } = useTranslation();
-
   const location = useLocation();
-
-  // console.log(location);
 
   const useEffectOnMount = (effect: React.EffectCallback) => {
     useEffect(effect, []);
@@ -75,11 +79,9 @@ export const AllOutfits = memo((props: Props) => {
 
             return (
               /* Each column takes up
-              50% space on small devices
-              33.33% space on medium devices
-              25% space on large devices.
-              Meaning large screen will see 4 images per row
-              and small screen will see 2 images per row. */
+              50% space on xsmall devices (2 columns)
+              33.33% space on medium devices (3 columns)
+              25% space on large devices and up. (4 columns) */
               <Col xs={6} md={4} lg={3} key={outfitID}>
                 <a href={`/outfit/${outfitID}`}>
                   <ThumbnailImage
@@ -92,9 +94,14 @@ export const AllOutfits = memo((props: Props) => {
             );
           })}
         </Row>
+        <LoadMoreButton
+          isEachThumbnailShown={isEachThumbnailShown}
+          loadedThumbnailLength={loadedThumbnailLength}
+          isLoading={isLoadingOutfitThumbnails}
+        />
       </Container>
     </>
   );
 });
 
-const Div = styled.div``;
+// const Div = styled.div``;
